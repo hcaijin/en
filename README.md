@@ -15,3 +15,7 @@ en
 
     sudo yum install php-cli
 
+需要赋予执行权限：
+
+    chmod a+x en
+
