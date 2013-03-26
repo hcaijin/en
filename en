@@ -1,0 +1,18 @@
+#!/bin/php
+<?php
+$url = 'http://openapi.baidu.com/public/2.0/bmt/translate?client_id=T8Qlsxu4VmLt6qWbqqjtMdLo&q=';
+isset($argv[1]) or die('至少指定一个词作为参数'.PHP_EOL);
+$q = $argv;
+array_shift($q);
+foreach($q as $k=>$v){
+    $q[$k]= urlencode($v);
+}
+$json = file_get_contents($url.implode('%0A',$q));
+$arr=json_decode($json,true);
+$arr = $arr['trans_result'];
+foreach ($arr as $key) {
+    $cmd='echo -ne "\e[44;37;5m '.$key['dst'].' \033[0m"';
+    echo "${key['src']} -> ".exec($cmd);
+    echo PHP_EOL;
+}
+?>
